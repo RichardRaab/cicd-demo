@@ -1,10 +1,5 @@
 pipeline { agent any
  stages {
- stage('checkout') {
- steps {
-    git credentialsId: 'GIT', url: 'https://github.com/RichardRaab/cicd-demo'
-}
- }
  stage('build') {
  steps {
 sh 'mvn clean install -DskipTest'}
