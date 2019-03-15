@@ -1,0 +1,24 @@
+pipeline { agent any
+ stages {
+ stage('checkout') {
+ steps {
+    git credentialsId: 'GIT', url: 'https://github.com/RichardRaab/cicd-demo'
+}
+ }
+ stage('build') {
+ steps {
+sh 'mvn clean install -DskipTest'}
+ }
+ stage('test') {
+ steps {
+   sh 'mvn test'
+}
+ }
+ stage('puplish') {
+ steps {
+junit '**/target/surefire-reports/TEST-*.xml'
+ archiveArtifacts 'target/*.jar'    
+ }
+ }
+ }
+ }
